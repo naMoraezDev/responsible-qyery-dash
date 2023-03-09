@@ -8,13 +8,13 @@ import {
 type InputProps = {
   name: string;
   label?: string;
-  type: string;
+  type?: string;
 } & ChakraInputProps;
 
 export function Input({ name, label, type, ...props }: InputProps) {
   return (
     <FormControl>
-      {!!label && <FormLabel htmlFor="password">Senha</FormLabel>}
+      {!!label && <FormLabel htmlFor="password">{label}</FormLabel>}
       <ChakraInput
         name={name}
         id={name}
