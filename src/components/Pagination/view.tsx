@@ -4,7 +4,7 @@ import { PaginationItem } from "./components/PaginationItem";
 export function PaginationView() {
   return (
     <Stack
-      direction="row"
+      direction={["column", "row"]}
       mt="8"
       justify="space-between"
       align="center"
@@ -20,8 +20,6 @@ export function PaginationView() {
         <PaginationItem number={4} />
         <PaginationItem number={5} />
         <PaginationItem number={6} />
-        <PaginationItem number={7} />
-        <PaginationItem number={8} />
       </Stack>
     </Stack>
   );
