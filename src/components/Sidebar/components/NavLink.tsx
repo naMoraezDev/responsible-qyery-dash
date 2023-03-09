@@ -1,3 +1,4 @@
+import { ActiveLinkView } from "@/components/ActiveLink/view";
 import {
   Icon,
   Link as ChakraLink,
@@ -15,17 +16,19 @@ type NavLinkProps = {
 
 export function NavLink({ icon, children, href, ...props }: NavLinkProps) {
   return (
-    <ChakraLink
+    <ActiveLinkView
       as={Link}
       href={href}
       display="flex"
       alignItems="center"
       {...props}
     >
-      <Icon as={icon} fontSize="20" />
-      <Text ml="4" fontWeight="medium">
-        {children}
-      </Text>
-    </ChakraLink>
+      <>
+        <Icon as={icon} fontSize="20" />
+        <Text ml="4" fontWeight="medium">
+          {children}
+        </Text>
+      </>
+    </ActiveLinkView>
   );
 }
