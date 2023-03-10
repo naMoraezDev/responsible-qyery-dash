@@ -1,7 +1,9 @@
 import { Header } from "@/components/Header";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
+import { api } from "@/services/api";
 import { useUsers } from "@/services/hooks/useUsers";
+import { queryClient } from "@/services/queryClient";
 import {
   Box,
   Button,
@@ -18,6 +20,7 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
@@ -29,6 +32,20 @@ export default function UserList() {
     base: false,
     lg: true,
   });
+
+  async function handlePrefetchUser(userId: string) {
+    await queryClient.prefetchQuery(
+      ["user", userId],
+      async () => {
+        const { data } = await api.get(`users/${userId}`);
+
+        return data;
+      },
+      {
+        staleTime: 1000 * 60 * 10, // 10 minutes
+      }
+    );
+  }
 
   return (
     <Box>
@@ -91,7 +108,12 @@ export default function UserList() {
                       </Td>
                       <Td>
                         <Box>
-                          <Text fontWeight="bold">{user.name}</Text>
+                          <ChakraLink
+                            color="purple.400"
+                            onMouseEnter={() => handlePrefetchUser(user.id)}
+                          >
+                            <Text fontWeight="bold">{user.name}</Text>
+                          </ChakraLink>
                           <Text fontSize="sm" color="gray.300">
                             {user.email}
                           </Text>
