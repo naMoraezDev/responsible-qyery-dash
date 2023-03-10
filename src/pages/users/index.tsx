@@ -23,7 +23,7 @@ import Link from "next/link";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 
 export default function UserList() {
-  const { data, isLoading, error } = useUsers();
+  const { data, isLoading, isFetching, error } = useUsers();
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -41,6 +41,9 @@ export default function UserList() {
           <Flex mb="8" justify="space-between" align="center">
             <Heading size="lg" fontWeight="normal">
               Usuários
+              {!isLoading && isFetching && (
+                <Spinner size="sm" color="gray.500" ml="4" />
+              )}
             </Heading>
 
             <Button
