@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
-import { api } from "@/services/api";
+import { useUsers } from "@/services/hooks/useUsers";
 import {
   Box,
   Button,
@@ -21,45 +21,14 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
-import { useQuery } from "react-query";
-
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: string;
-};
 
 export default function UserList() {
-  const { data, isLoading, error } = useQuery<User[]>(
-    "users",
-    async () => {
-      const { data } = await api.get("users");
-
-      const users: User[] = data.users.map((user: User) => ({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        }),
-      }));
-
-      return users;
-    },
-    {
-      staleTime: 1000 * 5, // 5 seconds
-    }
-  );
+  const { data, isLoading, error } = useUsers();
 
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
-
-  console.log(data);
 
   return (
     <Box>
