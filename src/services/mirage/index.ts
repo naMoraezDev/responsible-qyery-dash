@@ -10,7 +10,7 @@ import { faker } from "@faker-js/faker";
 type User = {
   name: string;
   email: string;
-  created_at: string;
+  created_at: Date;
 };
 
 export function makeServer() {
@@ -31,14 +31,14 @@ export function makeServer() {
         email() {
           return faker.internet.email().toLowerCase();
         },
-        createdAt() {
+        created_at() {
           return faker.date.recent(10);
         },
       }),
     },
 
     seeds(server) {
-      server.createList("user", 5);
+      server.createList("user", 135);
     },
 
     routes() {
