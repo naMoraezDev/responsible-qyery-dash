@@ -51,10 +51,10 @@ export default function UserList() {
     <Box>
       <Header />
 
-      <Flex w="100%" my="6" maxW={1480} mx="auto" px="6">
+      <Flex my="6" maxW={1480} mx="auto" px="6">
         <Sidebar />
 
-        <Box flex="1" borderRadius={8} bg="gray.800" p="8">
+        <Box width="100%" borderRadius={8} bg="gray.800" p="8">
           <Flex mb="8" justify="space-between" align="center">
             <Heading size="lg" fontWeight="normal">
               Usuários
